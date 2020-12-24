@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1026143741250",
+    "project_id": "news-app-4b2ff",
+    "storage_bucket": "news-app-4b2ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026143741250:android:fe62e93b0012742a9b94db",
+        "android_client_info": {
+          "package_name": "com.ensar.newsApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026143741250-2fhmlpel4agg2qgv5707pmc5hbstm02q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ensar.newsApp",
+            "certificate_hash": "7294474bf5049b208bbedc8f7b7aa888560a5d15"
+          }
+        },
+        {
+          "client_id": "1026143741250-vbv3bb0kt8qunbvo3g1qi0avb7e8gibo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTBakgbVxgOLYP2bvB7RsYjCLZw3MDcwU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026143741250-vbv3bb0kt8qunbvo3g1qi0avb7e8gibo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
