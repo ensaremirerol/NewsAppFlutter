@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:news_app/main.dart';
+import 'package:news_app/templates/email-input.dart';
 import 'package:news_app/utils/utils.dart';
 
 class EmailRegister extends StatefulWidget {
@@ -18,63 +19,11 @@ class _EmailRegisterState extends State<EmailRegister> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("E-mail ile kayıt ol"),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(labelText: "Email"),
-                  validator: (String email) {
-                    if (email.isEmpty) {
-                      return "Lütfen bir mail giriniz";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: "Şifre"),
-                  validator: (String password) {
-                    if (password.isEmpty) {
-                      return "Lütfen bir şifre giriniz";
-                    }
-                    return null;
-                  },
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  alignment: Alignment.center,
-                  child: SignInButtonBuilder(
-                    icon: Icons.person_add,
-                    backgroundColor: Colors.blueGrey,
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        await _register();
-                        if (_auth.currentUser != null) {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => Splash()));
-                        }
-                      }
-                    },
-                    text: "Kayıt ol",
-                  ),
-                ),
-              ],
-            ),
-          ),
+        appBar: AppBar(
+          title: Text("E-mail ile kayıt ol"),
         ),
-      ),
-    );
+        body: EmailInput(context, _emailController, _passwordController,
+            _formKey, "Giriş Yap", _register));
   }
 
   Future<void> _register() async {
@@ -94,5 +43,8 @@ class _EmailRegisterState extends State<EmailRegister> {
           break;
       }
     });
+    if (_auth.currentUser != null) {
+      Utils.pushAndRemove(context, Splash());
+    }
   }
 }

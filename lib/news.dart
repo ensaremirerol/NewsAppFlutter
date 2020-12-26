@@ -26,14 +26,6 @@ class _NewsState extends State<News> {
                       setState(() {});
                     })),
             IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () {
-                setState(() {
-                  Rss.instance.currentCategory = null;
-                });
-              },
-            ),
-            IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () => Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => Search())))

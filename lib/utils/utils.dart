@@ -10,4 +10,9 @@ class Utils {
       backgroundColor: ThemeManager.instance.getTheme().backgroundColor,
     )..show(context);
   }
+
+  static void pushAndRemove(BuildContext context, Widget widget) {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => widget), (route) => false);
+  }
 }
