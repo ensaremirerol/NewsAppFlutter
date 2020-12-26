@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/news_webview.dart';
+import 'package:news_app/utils/utils.dart';
 import 'package:webfeed/domain/rss_item.dart';
 
 class Test extends StatelessWidget {
@@ -22,8 +23,7 @@ class Test extends StatelessWidget {
           leading: _item.enclosure != null
               ? Image.network(_item.enclosure.url)
               : null,
-          onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => NewsWebview(_item.link))),
+          onTap: () => Utils.push(context, NewsWebview(_item.link)),
         );
       },
       separatorBuilder: (context, i) => Divider(),

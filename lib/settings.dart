@@ -5,6 +5,7 @@ import 'package:news_app/main.dart';
 import 'package:news_app/news_sources.dart';
 import 'package:news_app/services/rss_feed.dart';
 import 'package:news_app/services/theme_manager.dart';
+import 'package:news_app/utils/utils.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -51,8 +52,7 @@ class _SettingsState extends State<Settings> {
             trailing: Icon(Icons.logout),
             onTap: () {
               FirebaseAuth.instance.signOut();
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => Splash()));
+              Utils.pushAndRemove(context, Splash());
             },
           ),
           ListTile(

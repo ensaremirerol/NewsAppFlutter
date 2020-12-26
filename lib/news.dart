@@ -3,6 +3,7 @@ import 'package:news_app/newListTile.dart';
 import 'package:news_app/search.dart';
 import 'package:news_app/services/rss_feed.dart';
 import 'package:news_app/settings.dart';
+import 'package:news_app/utils/utils.dart';
 import 'package:webfeed/webfeed.dart';
 
 class News extends StatefulWidget {
@@ -19,16 +20,10 @@ class _NewsState extends State<News> {
           actions: [
             IconButton(
                 icon: Icon(Icons.settings),
-                onPressed: () => Navigator.of(context)
-                        .push(
-                            MaterialPageRoute(builder: (context) => Settings()))
-                        .then((value) {
-                      setState(() {});
-                    })),
+                onPressed: () => Utils.push(context, Settings())),
             IconButton(
                 icon: Icon(Icons.search),
-                onPressed: () => Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Search())))
+                onPressed: () => Utils.push(context, Search()))
           ],
         ),
         drawer: Drawer(

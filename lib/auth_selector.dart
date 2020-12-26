@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:news_app/email_login.dart';
+import 'package:news_app/main.dart';
+import 'package:news_app/services/google_sign_in.dart';
 import 'package:news_app/services/theme_manager.dart';
+import 'package:news_app/utils/utils.dart';
 
 import 'email_register.dart';
 
@@ -30,8 +34,7 @@ class _AuthSelectorState extends State<AuthSelector> {
               text: "Kayıt Ol",
               textColor: themeData.accentColor,
               iconColor: themeData.accentColor,
-              onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => EmailRegister())),
+              onPressed: () => Utils.push(context, EmailRegister()),
             ),
             padding: const EdgeInsets.all(16.0),
             alignment: Alignment.center,
@@ -43,8 +46,7 @@ class _AuthSelectorState extends State<AuthSelector> {
               text: "Giriş yap",
               textColor: themeData.accentColor,
               iconColor: themeData.accentColor,
-              onPressed: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => EmailLogin())),
+              onPressed: () => Utils.push(context, EmailLogin()),
             ),
             padding: const EdgeInsets.all(16.0),
             alignment: Alignment.center,
@@ -56,7 +58,12 @@ class _AuthSelectorState extends State<AuthSelector> {
               text: "Google ile Giriş yap",
               textColor: themeData.accentColor,
               iconColor: themeData.accentColor,
-              onPressed: () => {},
+              onPressed: () {
+                Google.signIn();
+                if (FirebaseAuth.instance.currentUser != null) {
+                  Utils.pushAndRemove(context, Splash());
+                }
+              },
             ),
             padding: const EdgeInsets.all(16.0),
             alignment: Alignment.center,
