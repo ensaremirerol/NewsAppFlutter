@@ -58,18 +58,17 @@ class _SettingsState extends State<Settings> {
           ListTile(
             title: Text("Lisanslar"),
             trailing: Icon(Icons.book),
-            onTap: () {
-              showLicensePage(context: context);
-            },
+            onTap: () => showMaterialModalBottomSheet(
+                context: context, builder: (context) => AboutPage()),
           ),
         ],
       ),
     );
   }
 
-  void refresh() {
+  void refresh(String name) {
     setState(() {
-      sourceName = Rss.instance.source.name;
+      sourceName = name;
     });
   }
 }
@@ -100,10 +99,52 @@ class SourceSelector extends StatelessWidget {
       trailing: key == Rss.instance.source.key ? Icon(Icons.check) : null,
       onTap: () async {
         Rss.changeSource(key);
-        await Rss.initRss();
         Navigator.of(context).pop();
-        notifyParent();
+        notifyParent(name);
       },
     );
+  }
+}
+
+class AboutPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: MediaQuery.of(context).size.height / 3,
+        child: SafeArea(
+          top: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: 80,
+                width: 80,
+                child: Icon(Icons.flag),
+              ),
+              Text(
+                "Haber Uygulaması",
+                style: TextStyle(fontSize: 20),
+              ),
+              Divider(
+                height: 20,
+              ),
+              Text(
+                "Bu uygulama Ensar Emir EROL tarafından Flutter ile yapılmıştır",
+                style: TextStyle(fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              TextButton(
+                child: Text(
+                  "Lisanslar",
+                  style: TextStyle(fontSize: 15),
+                ),
+                onPressed: () => showLicensePage(
+                    context: context,
+                    applicationName: "Haber Uygulaması",
+                    applicationVersion: "1.0"),
+              )
+            ],
+          ),
+        ));
   }
 }

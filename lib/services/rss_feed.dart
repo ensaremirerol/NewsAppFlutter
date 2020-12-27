@@ -34,7 +34,7 @@ class Rss {
   }
 
   static Future<List<RssItem>> getRssItems() async {
-    if (instance == null || instance.sourceChanged) {
+    if (instance == null) {
       await initRss();
     }
     var client = http.Client();
@@ -58,7 +58,7 @@ class Rss {
   static void changeSource(String key) async {
     SharedPreferencesManager.saveData("source", key);
     instance.source = sources.singleWhere((element) => element.key == key);
-    await initRss();
+    Rss.instance.sourceChanged = true;
   }
 
   static List<RssItem> getItemsByCategory(

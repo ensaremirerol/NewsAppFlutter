@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/newListTile.dart';
+import 'package:news_app/news_list_builder.dart';
 import 'package:news_app/search.dart';
 import 'package:news_app/services/rss_feed.dart';
 import 'package:news_app/settings.dart';
@@ -20,7 +20,15 @@ class _NewsState extends State<News> {
           actions: [
             IconButton(
                 icon: Icon(Icons.settings),
-                onPressed: () => Utils.push(context, Settings())),
+                onPressed: () => Navigator.of(context)
+                        .push(
+                            MaterialPageRoute(builder: (context) => Settings()))
+                        .then((value) async {
+                      if (Rss.instance.sourceChanged) {
+                        await Rss.initRss();
+                        setState(() {});
+                      }
+                    })),
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () => Utils.push(context, Search()))
@@ -28,17 +36,23 @@ class _NewsState extends State<News> {
         ),
         drawer: Drawer(
           child: ListView(
-            // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
             children: [
               DrawerHeader(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(children: [
-                    Text(Rss.instance.feed?.title ?? ""),
-                    Text("Kategoriler")
-                  ]),
-                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        Rss.instance?.feed?.title ?? "",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Kategoriler",
+                        style: TextStyle(fontSize: 15),
+                      )
+                    ]),
                 decoration: BoxDecoration(
                   color: Colors.blue,
                 ),
@@ -56,7 +70,7 @@ class _NewsState extends State<News> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<RssItem> items = snapshot.data;
-                return Test(
+                return NewsListTile(
                   items: items,
                 );
               } else if (snapshot.hasError) {
@@ -93,5 +107,13 @@ class _NewsState extends State<News> {
     setState(() {
       Rss.instance.currentCategory = null;
     });
+  }
+
+  Future<bool> sourceChanged() async {
+    if (Rss.instance.sourceChanged) {
+      await Rss.initRss();
+      setState(() {});
+    }
+    return true;
   }
 }

@@ -3,9 +3,9 @@ import 'package:news_app/news_webview.dart';
 import 'package:news_app/utils/utils.dart';
 import 'package:webfeed/domain/rss_item.dart';
 
-class Test extends StatelessWidget {
+class NewsListTile extends StatelessWidget {
   final List<RssItem> items;
-  Test({Key key, @required this.items}) : super(key: key);
+  NewsListTile({Key key, @required this.items}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListView.separated(

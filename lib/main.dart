@@ -30,8 +30,14 @@ class _SplashState extends State<Splash> {
         builder: (_, themeData, __) => MaterialApp(
               theme: themeData.getTheme(),
               home: SplashScreen(
-                seconds: 5,
-                title: new Text("Haber uygulaması"),
+                image: Image.asset(
+                  "assets/icons/icons8-news-512.png",
+                ),
+                title: Text(
+                  "Haber Uygulaması",
+                  style: TextStyle(fontSize: 25),
+                ),
+                photoSize: 100,
                 backgroundColor: themeData.getTheme().backgroundColor,
                 navigateAfterFuture: _route(),
               ),
