@@ -1,12 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:news_app/main.dart';
 import 'package:news_app/news_sources.dart';
 import 'package:news_app/services/rss_feed.dart';
 import 'package:news_app/services/theme_manager.dart';
-import 'package:news_app/utils/utils.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -49,21 +45,6 @@ class _SettingsState extends State<Settings> {
                       notifyParent: refresh,
                     ),
                   )),
-          ListTile(
-            title: Text("Hesaptan çık"),
-            subtitle: Text(FirebaseAuth.instance.currentUser.displayName ??
-                FirebaseAuth.instance.currentUser.email),
-            trailing: Icon(Icons.logout),
-            onTap: () async {
-              if (FirebaseAuth
-                      .instance.currentUser.providerData[0].providerId ==
-                  "google.com") {
-                await GoogleSignIn().signOut();
-              }
-              await FirebaseAuth.instance.signOut();
-              Utils.pushAndRemove(context, Splash());
-            },
-          ),
           ListTile(
             title: Text("Lisanslar"),
             trailing: Icon(Icons.book),

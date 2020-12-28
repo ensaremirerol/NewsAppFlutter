@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/auth_selector.dart';
 import 'package:news_app/news.dart';
 import 'package:news_app/services/rss_feed.dart';
 import 'package:news_app/services/theme_manager.dart';
