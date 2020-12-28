@@ -45,11 +45,7 @@ class _SplashState extends State<Splash> {
   }
 
   Future<StatefulWidget> _route() async {
-    if (FirebaseAuth.instance.currentUser != null) {
-      await Rss.initRss();
-      return News();
-    }
-    await Future.delayed(Duration(seconds: 5));
-    return AuthSelector();
+    await Rss.initRss();
+    return News();
   }
 }
