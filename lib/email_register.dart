@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart'
-    show FirebaseAuth, FirebaseAuthException, User;
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:news_app/main.dart';
 import 'package:news_app/templates/email-input.dart';
 import 'package:news_app/utils/utils.dart';

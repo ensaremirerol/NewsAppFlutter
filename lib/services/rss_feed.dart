@@ -73,8 +73,7 @@ class Rss {
     return items;
   }
 
-  static List<RssItem> searchRssItems(String search) {
-    List<String> filters = search != null ? search.split(" ") : null;
+  static List<RssItem> searchRssItems(List<String> filters) {
     return filters != null && filters.isNotEmpty
         ? instance.feed.items.where((element) {
             for (String filter in filters) {

@@ -25,22 +25,12 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    List<RssItem> result = filters != null && filters.isNotEmpty
-        ? Rss.instance.feed.items.where((element) {
-            for (String filter in filters) {
-              if (!element.title.toLowerCase().contains(filter) &&
-                  !(element.description != null &&
-                      element.description.toLowerCase().contains(filter))) {
-                return false;
-              }
-            }
-            return true;
-          }).toList()
-        : Rss.instance.feed?.items;
+    List<RssItem> result = Rss.searchRssItems(filters);
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
             title: TextField(
+              autofocus: true,
               controller: _filter,
               decoration: new InputDecoration(
                   prefixIcon: new Icon(Icons.search), hintText: 'Search...'),

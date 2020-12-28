@@ -29,6 +29,8 @@ class _AuthSelectorState extends State<AuthSelector> {
         children: [
           Container(
             child: SignInButtonBuilder(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               icon: Icons.person_add,
               backgroundColor: themeData.buttonColor,
               text: "Kayıt Ol",
@@ -41,6 +43,8 @@ class _AuthSelectorState extends State<AuthSelector> {
           ),
           Container(
             child: SignInButtonBuilder(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               icon: Icons.login,
               backgroundColor: themeData.buttonColor,
               text: "Giriş yap",
@@ -53,15 +57,22 @@ class _AuthSelectorState extends State<AuthSelector> {
           ),
           Container(
             child: SignInButtonBuilder(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               icon: Icons.login,
               backgroundColor: themeData.buttonColor,
               text: "Google ile Giriş yap",
               textColor: themeData.accentColor,
               iconColor: themeData.accentColor,
-              onPressed: () {
-                Google.signIn();
-                if (FirebaseAuth.instance.currentUser != null) {
+              image: Image.asset(
+                "assets/icons/google.png",
+                scale: 25,
+              ),
+              onPressed: () async {
+                if (await Google.signIn()) {
                   Utils.pushAndRemove(context, Splash());
+                } else {
+                  Utils.showFlushBar(context, "Bir şeyler ters gitti");
                 }
               },
             ),

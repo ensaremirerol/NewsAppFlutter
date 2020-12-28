@@ -19,6 +19,9 @@ class _NewsState extends State<News> {
           title: Text(Rss.instance?.feed?.title ?? ""),
           actions: [
             IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () => Utils.push(context, Search())),
+            IconButton(
                 icon: Icon(Icons.settings),
                 onPressed: () => Navigator.of(context)
                         .push(
@@ -29,9 +32,6 @@ class _NewsState extends State<News> {
                         setState(() {});
                       }
                     })),
-            IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () => Utils.push(context, Search()))
           ],
         ),
         drawer: Drawer(
@@ -46,7 +46,7 @@ class _NewsState extends State<News> {
                       Text(
                         Rss.instance?.feed?.title ?? "",
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "Kategoriler",
@@ -56,6 +56,14 @@ class _NewsState extends State<News> {
                 decoration: BoxDecoration(
                   color: Colors.blue,
                 ),
+              ),
+              ListTile(
+                title: Text("Tüm haberler"),
+                onTap: () {
+                  setState(() {
+                    Rss.instance.currentCategory = null;
+                  });
+                },
               ),
               if (Rss.instance.categories != null)
                 for (RssCategory category in Rss.instance.categories)
@@ -107,13 +115,5 @@ class _NewsState extends State<News> {
     setState(() {
       Rss.instance.currentCategory = null;
     });
-  }
-
-  Future<bool> sourceChanged() async {
-    if (Rss.instance.sourceChanged) {
-      await Rss.initRss();
-      setState(() {});
-    }
-    return true;
   }
 }

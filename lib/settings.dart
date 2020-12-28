@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:news_app/main.dart';
@@ -33,6 +34,7 @@ class _SettingsState extends State<Settings> {
                   ThemeManager.instance.lightTheme,
               onChanged: (value) => ThemeManager.instance.switchTheme(),
               activeColor: Colors.indigoAccent,
+              inactiveThumbColor: Colors.blueGrey,
             ),
           ),
           ListTile(
@@ -49,9 +51,16 @@ class _SettingsState extends State<Settings> {
                   )),
           ListTile(
             title: Text("Hesaptan çık"),
+            subtitle: Text(FirebaseAuth.instance.currentUser.displayName ??
+                FirebaseAuth.instance.currentUser.email),
             trailing: Icon(Icons.logout),
-            onTap: () {
-              FirebaseAuth.instance.signOut();
+            onTap: () async {
+              if (FirebaseAuth
+                      .instance.currentUser.providerData[0].providerId ==
+                  "google.com") {
+                await GoogleSignIn().signOut();
+              }
+              await FirebaseAuth.instance.signOut();
               Utils.pushAndRemove(context, Splash());
             },
           ),
@@ -81,16 +90,19 @@ class SourceSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        color: ThemeManager.themeData == ThemeManager.instance.lightTheme
+            ? Colors.white
+            : Colors.black.withAlpha(100),
         child: SafeArea(
-      top: false,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          for (MyRssSource source in sources)
-            _builder(context, source.name, source.key)
-        ],
-      ),
-    ));
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              for (MyRssSource source in sources)
+                _builder(context, source.name, source.key)
+            ],
+          ),
+        ));
   }
 
   ListTile _builder(BuildContext context, String name, String key) {
@@ -116,32 +128,48 @@ class AboutPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                height: 80,
-                width: 80,
-                child: Icon(Icons.flag),
-              ),
-              Text(
-                "Haber Uygulaması",
-                style: TextStyle(fontSize: 20),
-              ),
-              Divider(
-                height: 20,
-              ),
-              Text(
-                "Bu uygulama Ensar Emir EROL tarafından Flutter ile yapılmıştır",
-                style: TextStyle(fontSize: 15),
-                textAlign: TextAlign.center,
-              ),
-              TextButton(
-                child: Text(
-                  "Lisanslar",
-                  style: TextStyle(fontSize: 15),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 80,
+                  width: 80,
+                  child: Image.asset(
+                    "assets/icons/icons8-news-512.png",
+                    scale: 5,
+                  ),
                 ),
-                onPressed: () => showLicensePage(
-                    context: context,
-                    applicationName: "Haber Uygulaması",
-                    applicationVersion: "1.0"),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Haber Uygulaması",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Bu uygulama Ensar Emir EROL tarafından Flutter ile yapılmıştır",
+                  style: TextStyle(fontSize: 15),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  child: Text(
+                    "Lisanslar",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  onPressed: () => showLicensePage(
+                      context: context,
+                      applicationName: "Haber Uygulaması",
+                      applicationVersion: "1.0",
+                      applicationIcon: Image.asset(
+                        "assets/icons/icons8-news-512.png",
+                        scale: 5,
+                      )),
+                ),
               )
             ],
           ),

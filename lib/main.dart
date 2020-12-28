@@ -49,6 +49,7 @@ class _SplashState extends State<Splash> {
       await Rss.initRss();
       return News();
     }
+    await Future.delayed(Duration(seconds: 5));
     return AuthSelector();
   }
 }
