@@ -1,16 +1,22 @@
-# news_app
+# Haber Uygulaması - News App
 
-NewsApp
+Developer MultiCamp'in Final Projesi
 
-## Getting Started
+Final Project of Developer MultiCamp
 
-This project is a starting point for a Flutter application.
+Ensar Emir EROL tarafından geliştirilmiştir.
 
-A few resources to get you started if this is your first Flutter project:
+Developed by Ensar Emir EROL
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Gerçekleştirilen hedefler - Golas achieved
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* Splash sayfası - Splash page ✔
+* Giriş ve Kayıt ol sayfaları - Login and Logout pages ✔
+* Ana ekranda haberler listesi - List of news on main screen ✔
+* Haber detay sayfası - New details page ✔
+* Ayarlar sayfası - Settings page ✔
+* Uygulama ikonu - Application icon ✔
+* Açık ve Karanlık tema - Light and Dark theme ✔
+* Ayarlar ekranından birden fazla haber kaynağı seçebime - Ability to choose more than one news source from Settings ✔ (Farklı haber kaynakları seçillebiliyor ama hepsi aynı anda gelmiyor)
+* Seçilen kategoriye göre Rss feed i çekmek - Ability to choose category ✔
+* Lisanlar ekranı - Licenses page ✔
