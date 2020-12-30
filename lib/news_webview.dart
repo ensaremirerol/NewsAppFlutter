@@ -11,6 +11,7 @@ class NewsWebview extends StatefulWidget {
   createState() => _NewsWebviewState(this.url);
 }
 
+// Webview page i
 class _NewsWebviewState extends State<NewsWebview> {
   final String _url;
   final _key = UniqueKey();

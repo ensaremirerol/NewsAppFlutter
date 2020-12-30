@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:news_app/email_login.dart';
@@ -9,6 +8,7 @@ import 'package:news_app/utils/utils.dart';
 
 import 'email_register.dart';
 
+// Girşi biçmi seçim ekranı
 class AuthSelector extends StatefulWidget {
   @override
   _AuthSelectorState createState() => _AuthSelectorState();

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './shared_preferences.dart';
 
+// Tema verisi burda tutulur
+// Mevcut tema cihaz hafızasına yazılır
 class ThemeManager with ChangeNotifier {
   final darkTheme = ThemeData(
     primarySwatch: Colors.grey,

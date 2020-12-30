@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:news_app/services/theme_manager.dart';
 
+// Email şifre girişi
 class EmailInput extends StatelessWidget {
   final TextEditingController _emailController;
   final TextEditingController _passwordController;

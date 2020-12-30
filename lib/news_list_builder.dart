@@ -3,9 +3,10 @@ import 'package:news_app/news_webview.dart';
 import 'package:news_app/utils/utils.dart';
 import 'package:webfeed/domain/rss_item.dart';
 
-class NewsListTile extends StatelessWidget {
+//
+class NewsListBuilder extends StatelessWidget {
   final List<RssItem> items;
-  NewsListTile({Key key, @required this.items}) : super(key: key);
+  NewsListBuilder({Key key, @required this.items}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListView.separated(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/news_webview.dart';
+import 'package:news_app/news_list_builder.dart';
 import 'package:news_app/services/rss_feed.dart';
 import 'package:webfeed/domain/rss_item.dart';
 
@@ -12,12 +12,13 @@ class _SearchState extends State<Search> {
   final TextEditingController _filter = new TextEditingController();
   List<String> filters;
   _SearchState() {
+    // _filter a listener ekleyerek Arama listesinin dinamik olması sağlanıyor
     _filter.addListener(() {
       setState(() {
-        if (_filter.text.isEmpty) {
+        if (_filter.text.isEmpty && filters != null) {
           filters.clear();
         } else {
-          filters = _filter.text.split(" ");
+          filters = _filter.text.toLowerCase().split(" ");
         }
       });
     });
@@ -33,29 +34,10 @@ class _SearchState extends State<Search> {
               autofocus: true,
               controller: _filter,
               decoration: new InputDecoration(
-                  prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
+                  prefixIcon: new Icon(Icons.search), hintText: 'Ara...'),
             )),
-        body: ListView.separated(
-          itemBuilder: (context, i) {
-            RssItem _item = result[i];
-            return ListTile(
-              title: Text(_item.title),
-              subtitle: _item.description != null
-                  ? Text(
-                      _item.description,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    )
-                  : null,
-              leading: _item.enclosure != null
-                  ? Image.network(_item.enclosure.url)
-                  : null,
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => NewsWebview(_item.link))),
-            );
-          },
-          separatorBuilder: (context, i) => Divider(),
-          itemCount: result.length,
+        body: NewsListBuilder(
+          items: result ?? [],
         ));
   }
 }

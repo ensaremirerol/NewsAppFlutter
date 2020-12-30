@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import "package:shared_preferences/shared_preferences.dart";
 import 'dart:async';
 
+// Cihaz hafızasına küçük bilgileri yazabilir, okuyabilir ve silebilir
 class SharedPreferencesManager {
   static void saveData(String key, dynamic value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

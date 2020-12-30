@@ -11,7 +11,9 @@ import 'package:splashscreen/splashscreen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // Tema için bir singelton obje oluşturur
   ThemeManager.initThemeManager();
+  // Bu şekilde ThemeManagerın değişiklikleri dinlenir
   runApp(ChangeNotifierProvider<ThemeManager>(
     create: (_) => ThemeManager.instance,
     child: Splash(),
@@ -26,6 +28,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
+    // Consumer widgetı ThemeManagerdaki değişikliklerin arayüze yansımasını sağlar
     return Consumer<ThemeManager>(
         builder: (_, themeData, __) => MaterialApp(
               theme: themeData.getTheme(),
@@ -44,12 +47,15 @@ class _SplashState extends State<Splash> {
             ));
   }
 
+  // Eğerki hali hazırda kullanıcı girişi var ise Rss i init leyip
+  // Haberler ekranına geçer
+  // Kullanıcı girişi yok ise 3sn bekleyip Giriş ekranına geçer
   Future<StatefulWidget> _route() async {
     if (FirebaseAuth.instance.currentUser != null) {
       await Rss.initRss();
       return News();
     }
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 3));
     return AuthSelector();
   }
 }

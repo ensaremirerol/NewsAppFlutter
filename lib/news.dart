@@ -16,12 +16,15 @@ class _NewsState extends State<News> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          // Kaynağın adı, adı yoksa boş metin gösterir
           title: Text(Rss.instance?.feed?.title ?? ""),
           actions: [
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () => Utils.push(context, Search())),
             IconButton(
+                // Geri dönüşte kaynak değişimi olma ihtimaline karşın
+                // .then() metodu ile kontolü sağlanmıştır
                 icon: Icon(Icons.settings),
                 onPressed: () => Navigator.of(context)
                         .push(
@@ -57,6 +60,7 @@ class _NewsState extends State<News> {
                   color: Colors.blue,
                 ),
               ),
+              // Kayanğın kategori verisi yok ise sadece bu gösterilir
               ListTile(
                 title: Text("Tüm haberler"),
                 onTap: () {
@@ -66,6 +70,7 @@ class _NewsState extends State<News> {
                   });
                 },
               ),
+              // Kaynağın kategori verisi var ise Drawer a tüm kategoriller eklenir
               if (Rss.instance.categories != null)
                 for (RssCategory category in Rss.instance.categories)
                   _buildDrawerList(category)
@@ -74,12 +79,13 @@ class _NewsState extends State<News> {
         ),
         body: RefreshIndicator(
           onRefresh: refresh,
+          // FutureBuilder StreamBuillder ın Future hali
           child: FutureBuilder(
             future: Rss.getRssItems(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<RssItem> items = snapshot.data;
-                return NewsListTile(
+                return NewsListBuilder(
                   items: items,
                 );
               } else if (snapshot.hasError) {
