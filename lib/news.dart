@@ -60,6 +60,7 @@ class _NewsState extends State<News> {
               ListTile(
                 title: Text("Tüm haberler"),
                 onTap: () {
+                  Navigator.pop(context);
                   setState(() {
                     Rss.instance.currentCategory = null;
                   });
