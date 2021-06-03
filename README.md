@@ -8,7 +8,7 @@ Ensar Emir EROL tarafından geliştirilmiştir.
 
 Developed by Ensar Emir EROL
 
-## Gerçekleştirilen hedefler - Golas achieved
+## Gerçekleştirilen hedefler - Goals achieved
 
 * Splash sayfası - Splash page ✔
 * Giriş ve Kayıt ol sayfaları - Login and Logout pages ✔
